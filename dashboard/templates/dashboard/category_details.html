@@ -1,0 +1,69 @@
+{% extends 'baseDashboard.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-6">
+            <form method="post">
+                {% csrf_token %}
+                {{form|crispy}}
+                <div class="d-flex justify-content-between">
+                    <button type="submit" name="update" class="btn btn-primary my-4">حدث</button>
+                    <button type="button" class="btn btn-outline-danger  my-4" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">ازلة الفئة</button>
+                </div>
+            </form>
+
+        </div>
+        
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-center">{{category.title}}</h4>
+                </div>
+            </div>
+            <h4 class="text-center">منتجات الفئة</h4>
+            <div class="list-group ">
+                {% for product in category.get_all_product_dash %}
+                <a href="{% url 'product_details' product.id %}"
+                    class="list-group-item list-group-item-action">{{product.title}}</a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-6">
+            
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">{{category.title}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5 class="text-center">هل انت متأكد من ازلة الفئة</h5>
+                <h6 class="text-danger text-center">سوف يقوم هذا الاجراء بمسح كل المنتجات في نفس الفئة</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" name="delete" class="btn btn-danger">نعم</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>
+{% endblock content %}

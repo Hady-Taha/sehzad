@@ -1,0 +1,98 @@
+{% extends 'baseDashboard.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>المنتجات</h1>
+            <table id="example" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>الاسم</th>
+                        <th>الفئة</th>
+                        <th>معروض</th>
+                        <th>بيعت </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <th class="id_" scope="row">
+                            {{product.id}}
+                        </th>
+                        <td>
+                            <a style="text-decoration: none; color: #333;"
+                                href="{% url 'product_details' product.id %}">{{product.title}}</a>
+                        </td>
+                        <td>
+
+                            <a style="text-decoration: none; color: #333;"
+                                href="{% url 'category_details' product.category.id %}">{{product.category}}</a>
+                        </td>
+                        <td>
+                            <p class="d-none stock">
+                                {% if product.stock %}
+                                A
+                                {% else %}
+                                B
+                                {% endif %}
+                            </p>
+
+                            <div class="form-check">
+                                <input class="form-check-input stock_check" type="checkbox" value="{{product.id}}"
+                                    id="flexCheckDefault" {% if product.stock %} checked {% endif %}>
+                            </div>
+                        </td>
+                        <td>{{product.count_order}}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+</div>
+
+{% endblock content %}
+
+
+
+<table class="table table-striped mt-5" id="products">
+    <thead class="table-dark">
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">الاسم</th>
+            <th scope="col">الفئة</th>
+            <th scope="col">معروض</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+            <th class="id_" scope="row"></th>
+            <td>
+                <a style="text-decoration: none; color: #333;"
+                    href="{% url 'product_details' product.id %}">{{product.title}}</a>
+            </td>
+            <td>
+
+                <a style="text-decoration: none; color: #333;"
+                    href="{% url 'category_details' product.id %}">{{product.category}}</a>
+            </td>
+            <td>
+                <p class="d-none">
+                    {% if product.stock %}
+                    A
+                    {% else %}
+                    B
+                    {% endif %}
+                </p>
+
+                <div class="form-check">
+                    <input class="form-check-input stock_check" type="checkbox" value="{{product.id}}"
+                        id="flexCheckDefault" {% if product.stock %} checked {% endif %}>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <!--Bootstrap -V 5.1.3x-->
+    <title>{% block title %}{{title}}{% endblock title %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/lib/bootstrap-icons.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'main/css/lib/bootstrap.rtl.min.css' %}">
+	{% comment %} <link rel="stylesheet" type="text/css" href="{% static 'main/css/main.css' %}"> {% endcomment %}
+	<link rel="icon" href="{% static 'main/img/logo/logo.png' %}">
+    <!--jquery -V 3.6.0-->
+    <link rel="stylesheet" type="text/css" href="{% static 'main/css/lib/dataTables.css' %}">
+
+</head>
+
+<body style="background-color: #e5e5e5;">
+    {% include 'components/navDashboard.html' %}
+
+    {% block content %}
+
+
+    {% endblock content %}
+
+
+    <script type="text/javascript" src="{% static 'main/js/lib/jquery.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'main/js/lib/bootstrap.bundle.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'main/js/csrftoken.js' %}"></script>
+	<script type="text/javascript" src="{% static 'main/js/sendRequest.js' %}"></script>
+    <script type="text/javascript" charset="utf8" src="{% static 'main/js/lib/dataTables.js' %}"></script>
+	<script type="text/javascript" src="{% static 'main/js/main.js' %}"></script>
+    <script type="text/javascript" src="{% static 'main/js/mainDashboard.js' %}"></script>
+</body>
+
+</html>

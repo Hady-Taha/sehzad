@@ -1,0 +1,77 @@
+{% extends 'baseDashboard.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-6">
+            <form method="post">
+                {% csrf_token %}
+                {{form|crispy}}
+                <div class="d-flex justify-content-between">
+                    <button type="submit" name="update" class="btn btn-primary my-4">حدث</button>
+                    <button type="button" class="btn btn-outline-danger  my-4" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop">ازلة المنتج</button>
+                </div>
+
+            </form>
+
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="text-center">{{product.title}}</h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% if product.description %}
+                    <li class="list-group-item">الوصف : <strong>{{product.description}}</strong> </li>
+                    {% endif %}
+                    <li class="list-group-item">الوزن : <strong>{{product.type_Product}}</strong> </li>
+                    <li class="list-group-item">الفئة : <strong><a href="{% url 'category_details' product.category.id %}">{{product.category}}</a> </strong></li>
+                    <li class="list-group-item">السعر : <strong>{{product.price}}</strong></li>
+                    {% if  product.discount %}
+                    <li class="list-group-item">خصم : <strong>{{product.discount}}</strong></li>
+                    {% else %}
+                    <li class="list-group-item">خصم : <strong>0</strong></li>
+                    {% endif %}
+                    <li class="list-group-item">الزيادة : <strong>{{product.start}} {{product.type_Product}}</strong>
+                    </li>
+                    <li class="list-group-item">مرات البيع : <strong>{{product.count_order}}</strong>
+                    </li>
+                    <li class="list-group-item">معروض : <strong> {% if product.stock %} <i
+                                class="bi bi-check text-success" style="font-size: 30px;"></i> {% else %} <i
+                                class="bi bi-dash-circle text-secondary" style="font-size: 20px;"></i>{% endif %}
+                        </strong> </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">{{product.title}}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5 class="text-danger text-center">هل انت متأكد من ازلة المنتج</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">الغاء</button>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" name="delete" class="btn btn-danger">نعم</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

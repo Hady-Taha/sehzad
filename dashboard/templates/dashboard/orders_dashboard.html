@@ -1,0 +1,56 @@
+{% extends 'baseDashboard.html' %}
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>المنتجات</h1>
+            <table id="example" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+
+                        <th>الاسم العميل</th>
+                        <th>سعر الاوردر</th>
+                        <th>منتجات</th>
+                        <th>حالة الاوردر</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>
+                            {{order.customer.full_name}}
+                        </td>
+                        <td>
+                            {{order.price}}
+                        </td>
+                        <td>
+                            {% for items in order.get_cart %}
+                            {{forloop.counter}}-{{items.product.title}}
+                            <br>
+                            الكمية: {{items.quantity}} {{items.product.type_Product}}
+                            <br>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <select class="form-select form-select-sm order_status" aria-label=".form-select-sm example"
+                                data-id_order="{{order.id}}">
+                                <option selected>{{order.status}}</option>
+
+                                {% if order.status == "تم التوصيل" %}
+                                <option value="تم الطلب">تم الطلب</option>
+                                {% else %}
+                                <option value="تم التوصيل">تم التوصيل</option>
+                                {% endif %}
+
+
+                            </select>
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

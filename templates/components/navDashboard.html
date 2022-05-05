@@ -1,0 +1,38 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'overview' %}"><i class="bi bi-apple"></i> Şehzad DASHBORD</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link"  href="{% url 'overview' %}">المنتجات</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_product' %}">اضف منتج جديد</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'add_category' %}">اضف فئة جديدة</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'customers' %}">العملاء</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'orders_dashboard' %}">الطلابات</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'home' %}">عرض الموقع</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="{% url 'logout' %}">تسجيل الخروج</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

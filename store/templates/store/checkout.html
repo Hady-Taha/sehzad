@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+
+<div class="container" style="padding-top: 5rem;">
+    <main>
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="{% static 'main/img/logo/logo2.png' %}" alt="" width="150"
+                height="150">
+            <h2>شكراً على تسوقك من فودك</h2>
+            <p class="lead">وسعداء بوجود عميل مثلك لدينا.
+
+            </p>
+        </div>
+
+        <div class="row">
+            <div class="col-6 col-lg-4  order-last ">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-primary"> الفاتورة</span>
+                    <span class="badge bg-primary rounded-pill">{{cart.count}}</span>
+                </h4>
+                <ul class="list-group mb-3">
+                    {% for i in cart %}
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div class="">
+                            <h6 class="my-0">{{i.product.title}}</h6>
+                            <small class="text-muted">عدد {{i.quantity}}</small>
+                        </div>
+                        {% if i.product.discount %}
+                        <span><s style="color: #dc2f02;">{{i.get_total_summery}}</s> جنية </span>
+                        <span>{{i.get_total_summery}} جنية </span>
+                        {% else %}
+                        <span>{{i.get_total_summery}}جنية </span>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>اجمالي سعر المنتجات </span>
+                        <strong class="total_price">
+                            <span>{{cart.0.get_total_price}}</span>
+                        </strong>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>التوصيل </span>
+                        <strong class="">
+                            {% if user_customer.region.price %}
+                            <span class="text-secondary region_price ">جنية {{user_customer.region.price}}</span>
+                            {% else %}
+                            <span class="text-secondary region_price "> اختار منطقتك ليظهر تمن التوصيل </span>
+                            {% endif %}
+                        </strong>
+                    </li>
+
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>اجمالي </span>
+                        <strong class="total_price">
+                            {% if user_customer.region.price %}
+                            جنية <span
+                                class="price_and_region">{{cart.0.get_total_price|add:user_customer.region.price}}</span>
+                            {% else %}
+                            جنية <span class="price_and_region">{{cart.0.get_total_price}}</span>
+                            {% endif %}
+                        </strong>
+                    </li>
+                </ul>
+
+
+
+                <div class="input-group mb-3">
+                    <div class="input-group has-validation">
+                        <input type="text" class="form-control poromoText" name="poromoText"
+                            placeholder="ادخل الكبون الخاص بك" id="validationCustomUsername"
+                            aria-describedby="inputGroupPrepend">
+                        <button type="button" name="PromoCode" class="btn Redeem btn-secondary">ادخل</button>
+                        <div class="invalid-feedback">
+                            هذا الكود غير صحيح
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-8">
+                <h4 class="mb-3">بيانات التوصيل</h4>
+                <form method="post" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    <div class="row g-3">
+                        <input type="hidden" name="codeing" id="codeing" value="">
+                        {{form|crispy}}
+                    </div>
+                    <hr class="my-4">
+                    <button id="checkout_btn" class="w-100 btn btn-secondary  btn-lg disabled" type="submit"
+                        name="checkout">
+                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        من فضلك تأكد من الفاتورة 
+                        و بياناتك
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+
+{% endblock content %}

@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <script type="text/javascript" src="{% static 'main/js/device_cookie.js' %}"></script>
+	<!--Bootstrap -V 5.1.3x-->
+	<title>{% block title %}{{title}}{% endblock title %}</title>
+	<meta name="title" content="مطعم فودك لتوصيل طلابات السوق الي المنزل">
+	<meta name="description" content="موقع فودك يقدم خضار و لحوم من اجود انواع الخضار و الحوم يقدمها لاهل السويس طازة و صحية">
+	<meta name="keywords" content="السويس,اكل,السويس اكل,محافظة السويس,">
+	<meta name="robots" content="index, follow">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="language" content="Arabic">
+	<meta name="revisit-after" content="3 days">
+	<meta name="author" content="فودك">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="theme-color" content="#FFC107">
+	<meta name="msapplication-navbutton-color" content="#FFC107">
+	<meta name="apple-mobile-web-app-status-bar-style" content="#FFC107">
+	<link rel="stylesheet" type="text/css" href="{% static 'main/css/lib/bootstrap-icons.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'main/css/lib/bootstrap.rtl.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'main/css/main.css' %}">
+	<link rel="icon" href="{% static 'main/img/logo/logo.png' %}">
+	<!--jquery -V 3.6.0-->
+	
+</head>
+
+<body>
+
+
+	{% include "components/navbar.html" %}
+	{% block content %}
+
+
+	{% endblock content %}
+
+	{% include "components/footer.html" %}
+
+
+
+	<script type="text/javascript" src="{% static 'main/js/lib/jquery.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'main/js/lib/bootstrap.bundle.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'main/js/csrftoken.js' %}"></script>
+	<script type="text/javascript" src="{% static 'main/js/sendRequest.js' %}"></script>
+	<script type="text/javascript" src="{% static 'main/js/main.js' %}"></script>
+	
+	{% csrf_token %}
+
+</body>
+
+</html>
